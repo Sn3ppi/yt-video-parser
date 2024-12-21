@@ -37,7 +37,7 @@ jobs:
 
     - name: Extract FFmpeg
       run: |
-        "C:\Program Files\7-Zip\7z.exe" x "..\packages\ffmpeg-7.1-full_build.7z"
+        & "C:\Program Files\7-Zip\7z.exe" x "..\packages\ffmpeg-7.1-full_build.7z"
         move ffmpeg-7.1-full_build ffmpeg
       working-directory: AppBuild
 
