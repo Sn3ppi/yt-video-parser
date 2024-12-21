@@ -7,7 +7,7 @@ class ArgsHandler:
 
     def __parse_args(self) -> Namespace:
         parser = ArgumentParser(description="Youtube playlist parser")
-        parser.add_argument('playlist_url', required=True, help='Playlist URL')
+        parser.add_argument('playlist_url', help='Playlist URL')
         parser.add_argument('-c', '--cookies', required=True, help='Youtube user cookies file')
         parser.add_argument('-n', '--name', default=None, help='Output filename (Default: playlist name)')
         return parser.parse_args()
