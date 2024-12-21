@@ -45,7 +45,7 @@ jobs:
       run: |
         pip install --upgrade pip
         python -m venv pkgs
-        pkgs\Scripts\activate && pip install -r "..\requirements.txt" && pkgs\Scripts\deactivate
+        pkgs\Scripts\activate && pip install -r "..build\requirements.txt" && pkgs\Scripts\deactivate
       working-directory: AppBuild
 
     - name: Build Executable with PyInstaller
