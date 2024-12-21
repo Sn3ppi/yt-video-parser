@@ -1,0 +1,2 @@
+python-docx
+yt-dlp

@@ -1,0 +1,61 @@
+name: Build and Package YTPlaylistParser
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10  # Задайте необходимую версию Python
+
+    - name: Install 7-Zip
+      run: |
+        choco install 7zip -y
+
+    - name: Create directories
+      run: |
+        mkdir packages
+        mkdir AppBuild
+
+    - name: Download FFmpeg
+      run: |
+        curl -L -O https://www.gyan.dev/ffmpeg/builds/packages/ffmpeg-7.1-full_build.7z
+      working-directory: packages
+
+    - name: Extract FFmpeg
+      run: |
+        "C:\Program Files\7-Zip\7z.exe" x "..\packages\ffmpeg-7.1-full_build.7z"
+        move ffmpeg-7.1-full_build ffmpeg
+      working-directory: AppBuild
+
+    - name: Setup Python Virtual Environment
+      run: |
+        pip install --upgrade pip
+        python -m venv pkgs
+        pkgs\Scripts\activate && pip install -r "..\requirements.txt" && pkgs\Scripts\deactivate
+      working-directory: AppBuild
+
+    - name: Build Executable with PyInstaller
+      run: |
+        pip install pyinstaller==5.7.0
+        pkgs\Scripts\activate && pyinstaller -F --name "YTPlaylistParser" --paths="pkgs/Lib/site-packages;." --add-data "ffmpeg;ffmpeg" "..\src\main.py" && pkgs\Scripts\deactivate
+      working-directory: AppBuild
+
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: YTPlaylistParser
+        path: AppBuild/dist/YTPlaylistParser.exe
