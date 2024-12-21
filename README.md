@@ -9,7 +9,7 @@ All parameters:
 YTPlaylistParser -h
 ```
 
-```cookies.json``` - your Youtube account browser cookies. Should be placed near YTPlaylistParser.
+```cookies.json``` - your Youtube account browser cookies. Should be placed near YTPlaylistParser.exe.
 
 Output docx file contains playlist name, videos names and their timecodes if present. All the headings and timecodes are clickable.
 It can be useful for exam preparation with videolectures.
