@@ -47,6 +47,5 @@ if __name__ == "__main__":
     out = output_file(filename)
     d.save(out)
     t2 = datetime.datetime.now()
-    logger.info(f"Документ успешно сохранен: {out}")
-    logger.info(f"Затраченное время: {t2-t1}")
-    
+    logger.info(f"Output saved to: {out}")
+    logger.info(f"Time elapsed: {t2-t1}")
